@@ -21,3 +21,18 @@ export const postBooks = async (req,res) =>{
         return res.json("The book has been created successfully")
     })
 }
+
+export const updateBooks = async (req,res) =>{
+    const sqlquery = 'UPDATE books SET `title`=?, `desc`=?, `cover`=? WHERE id=?';
+    const id = req.params.id
+    const values = [
+        req.body.title,
+        req.body.desc,
+        req.body.cover
+    ]
+
+    db.query(sqlquery,[...values,id],(error,data)=>{
+        if (error) return res.json(error);
+        return res.json("The book has been updated successfully")
+    })
+}
