@@ -20,10 +20,11 @@ export const getBooksByid = async (req,res) =>{
 
 
 export const postBooks = async (req,res) =>{
-    const sqlquery = 'INSERT INTO books(`title`, `desc`, `cover`,`year`) VALUES (?)';
+    const sqlquery = 'INSERT INTO books(`title`, `desc`, `year`,`cover`) VALUES (?)';
     const values = [
         req.body.title,
         req.body.desc,
+        req.body.year,
         req.body.cover
     ]
 
@@ -35,13 +36,14 @@ export const postBooks = async (req,res) =>{
 
 
 export const updateBooks = async (req,res) =>{
-    const sqlquery = 'UPDATE books SET `title`=IFNULL(?,`title`), `desc`=IFNULL(?,`desc`), `cover`=IFNULL(?,`cover`),`year`=IFNULL(?,`year`) WHERE id=?';
+    const sqlquery = 'UPDATE books SET `title`=IFNULL(?,`title`), `desc`=IFNULL(?,`desc`), `year`=IFNULL(?,`year`),`cover`=IFNULL(?,`cover`) WHERE id=?';
     const id = req.params.id
     const values = [
         req.body.title,
         req.body.desc,
-        req.body.cover,
-        req.body.year
+        req.body.year,
+        req.body.cover
+        
     ]
 
     db.query(sqlquery,[...values,id],(error,data)=>{
