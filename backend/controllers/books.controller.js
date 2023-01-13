@@ -43,7 +43,6 @@ export const updateBooks = async (req,res) =>{
         req.body.desc,
         req.body.year,
         req.body.cover
-        
     ]
 
     db.query(sqlquery,[...values,id],(error,data)=>{

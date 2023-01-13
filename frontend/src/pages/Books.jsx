@@ -15,14 +15,22 @@ const Books = () => {
       }
     }
     fetchAllBooks()
-  })
+  });
+
+  const handleDelete = async(id)=>{
+    try {
+      await axios.delete("http://localhost:8800/books/"+id)
+      window.location.reload();
+    } catch (error) {
+      
+    }
+  }
+
   return (
 
     <div>
     <h1>The onyx bookstorage </h1>
-    <button>
-      <Link to="/add">Add new book</Link>
-      </button>
+    <Link className='addButton' to="/add">Add new book</Link>
     <div className='books'>
       {books.map((book)=>
         <div className='book' key={book.id}>
@@ -30,6 +38,8 @@ const Books = () => {
           <h2>{book.title}</h2>
           <p>{book.desc}</p>
           <span>{book.year}</span>
+          <button className='delete' onClick={()=> handleDelete(book.id)}>Delete</button>
+          <button className='update' ><Link to={`/update/${book.id}`}>Update</Link></button>
         </div>
       )}
     </div>
